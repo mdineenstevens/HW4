@@ -21,6 +21,18 @@ void print_matrix(float *matrix, int width) {
     printf("\n");
   }
 }
+void transpose_matrix(float *matrix, float *out_matrix, int width, int block) {
+
+  for (int i = 0; i < width; i += block) {
+    for (int j = 0; j < width; j += block) {
+      for (int x = i; x < i + block; ++x) {
+        for (int y = j; y < j + block; ++y) {
+          out_matrix[x + y * width] = matrix[y + x * width];
+        }
+      }
+    }
+  }
+}
 
 int main(int argc, char *argv[]) {
 
@@ -40,7 +52,9 @@ int main(int argc, char *argv[]) {
   initialize_matrix(in_matrix, m_width);
   print_matrix(in_matrix, m_width);
   float *out_matrix = (float *)malloc(m_width * m_width * sizeof(float));
+  transpose_matrix(in_matrix, out_matrix, m_width, blocksize);
   printf("\n");
+  print_matrix(out_matrix, m_width);
 
   free(in_matrix);
   free(out_matrix);
