@@ -33,8 +33,10 @@ void transpose_matrix(float *matrix, float *out_matrix, int width, int block) {
     }
   }
 }
-
 int main(int argc, char *argv[]) {
+  struct timeval start, end;
+
+  gettimeofday(&start, NULL);
 
   if (argc != 3) {
     fprintf(stderr, "Usage: <width>  <block> \n");
@@ -50,11 +52,16 @@ int main(int argc, char *argv[]) {
 
   float *in_matrix = (float *)malloc(m_width * m_width * sizeof(float));
   initialize_matrix(in_matrix, m_width);
-  print_matrix(in_matrix, m_width);
+  // print_matrix(in_matrix, m_width);
   float *out_matrix = (float *)malloc(m_width * m_width * sizeof(float));
+  gettimeofday(&start, NULL);
   transpose_matrix(in_matrix, out_matrix, m_width, blocksize);
+  gettimeofday(&end, NULL);
+  printf("Total time = %f seconds\n",
+         (double)(end.tv_usec - start.tv_usec) / 1000000 +
+             (double)(end.tv_sec - start.tv_sec));
   printf("\n");
-  print_matrix(out_matrix, m_width);
+  // print_matrix(out_matrix, m_width);
 
   free(in_matrix);
   free(out_matrix);
