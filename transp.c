@@ -1,7 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/time.h>
 #include <time.h>
+
+void initialize_matrix(float *matrix, int width) {
+  float a = 100;
+  srand((unsigned int)time(NULL));
+
+  for (int row = 0; row < width; row++)
+    for (int column = 0; column < width; column++)
+      matrix[row * width + column] = (float)rand() / (float)(RAND_MAX / a);
+}
 
 int main(int argc, char *argv[]) {
 
@@ -18,9 +28,9 @@ int main(int argc, char *argv[]) {
   }
 
   float *in_matrix = (float *)malloc(m_width * m_width * sizeof(float));
+  initialize_matrix(in_matrix, m_width);
   float *out_matrix = (float *)malloc(m_width * m_width * sizeof(float));
   printf("\n");
-  // print_matrix(out_matrix, m_width);
 
   free(in_matrix);
   free(out_matrix);
