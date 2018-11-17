@@ -12,6 +12,15 @@ void initialize_matrix(float *matrix, int width) {
     for (int column = 0; column < width; column++)
       matrix[row * width + column] = (float)rand() / (float)(RAND_MAX / a);
 }
+void print_matrix(float *matrix, int width) {
+  int row, columns;
+  for (int row = 0; row < width; row++) {
+    for (int columns = 0; columns < width; columns++) {
+      printf("%*.*f ", 5, 2, matrix[row * width + columns]);
+    }
+    printf("\n");
+  }
+}
 
 int main(int argc, char *argv[]) {
 
@@ -29,6 +38,7 @@ int main(int argc, char *argv[]) {
 
   float *in_matrix = (float *)malloc(m_width * m_width * sizeof(float));
   initialize_matrix(in_matrix, m_width);
+  print_matrix(in_matrix, m_width);
   float *out_matrix = (float *)malloc(m_width * m_width * sizeof(float));
   printf("\n");
 
